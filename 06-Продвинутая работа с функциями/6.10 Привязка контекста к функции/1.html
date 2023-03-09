@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      'use strict';
+      // Связанная функция как метод
+      // важность: 5
+      // Что выведет функция?
+
+      function f() {
+        alert(this); // null в строгом режиме, без него - глобальный объект
+      }
+
+      let user = {
+        g: f.bind(null),
+      };
+
+      user.g();
+    </script>
+  </body>
+</html>
