@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <ul>
+      <li>
+        Животные
+        <ul>
+          <li>
+            Млекопитающие
+            <ul>
+              <li>Коровы</li>
+              <li>Ослы</li>
+              <li>Собаки</li>
+              <li>Тигры</li>
+            </ul>
+          </li>
+          <li>
+            Другие
+            <ul>
+              <li>Змеи</li>
+              <li>Птицы</li>
+              <li>Ящерицы</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>
+        Рыбы
+        <ul>
+          <li>
+            Аквариумные
+            <ul>
+              <li>Гуппи</li>
+              <li>Рыба-ангел</li>
+            </ul>
+          </li>
+          <li>
+            Морские
+            <ul>
+              <li>Морская форель</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <script>
+      //     Считаем потомков
+      // важность: 5
+      // У нас есть дерево, структурированное как вложенные списки ul/li.
+
+      // Напишите код, который выведет каждый элемент списка <li>:
+
+      // Какой в нём текст (без поддерева) ?
+      const text = document.querySelector('ul').textContent;
+      console.log(text);
+      // Какое число потомков – всех вложенных <li> (включая глубоко вложенные) ?
+      const descendants = document.querySelectorAll('ul li').length;
+      console.log(descendants);
+
+      for (let li of document.querySelectorAll('li')) {
+        // получаем название из текстового узла
+        let title = li.firstChild.data;
+
+        title = title.trim(); // удаляем лишние пробелы c конца строки
+
+        // считаем количество потомков
+        let count = li.getElementsByTagName('li').length;
+
+        console.log(title + ': ' + count);
+      }
+    </script>
+  </body>
+</html>
