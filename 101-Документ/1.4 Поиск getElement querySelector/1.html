@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body cz-shortcut-listen="true">
+    <form name="search">
+      <label
+        >Search the site:
+        <input type="text" name="search" />
+      </label>
+      <input type="submit" value="Search!" />
+    </form>
+
+    <hr />
+
+    <form name="search-person">
+      Search the visitors:
+      <table id="age-table">
+        <tbody>
+          <tr>
+            <td>Age:</td>
+            <td id="age-list">
+              <label>
+                <input type="radio" name="age" value="young" />less than
+                18</label
+              >
+              <label>
+                <input type="radio" name="age" value="mature" />18-50</label
+              >
+              <label>
+                <input type="radio" name="age" value="senior" />more than
+                50</label
+              >
+            </td>
+          </tr>
+
+          <tr>
+            <td>Additionally:</td>
+            <td>
+              <input type="text" name="info[0]" />
+              <input type="text" name="info[1]" />
+              <input type="text" name="info[2]" />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <input type="submit" value="Search!" />
+    </form>
+    <script>
+      //       Поиск элементов
+      // важность: 4
+      // Вот документ с таблицей и формой.
+
+      // Как найти?…
+
+      // Таблицу с id="age-table".
+      const table = document.getElementById('age-table');
+      // Все элементы label внутри этой таблицы (их три).
+      const labels = table.getElementsByTagName('label');
+      // Первый td в этой таблице (со словом «Age»).
+      const td = table.getElementsByTagName('td')[0];
+      // Форму form с именем name="search".
+      const form = document.getElementsByName('search')[0];
+      // Первый input в этой форме.
+      const firstInput = form.getElementsByTagName('input')[0];
+      // Последний input в этой форме.
+      const lastInput =
+        form.querySelectorAll('input')[
+          form.querySelectorAll('input').length - 1
+        ];
+      // Откройте страницу table.html в отдельном окне и используйте для этого браузерные инструменты разработчика.
+      console.log(table);
+      console.log(labels);
+      console.log(td);
+      console.log(form);
+      console.log(firstInput);
+      console.log(lastInput);
+    </script>
+  </body>
+</html>
