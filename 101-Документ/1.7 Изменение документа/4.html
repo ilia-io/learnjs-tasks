@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h1>Создать список</h1>
+
+    <script>
+      const list = document.createElement('ul');
+      document.body.append(list);
+
+      while (true) {
+        let text = prompt('Введите имя пункта', '');
+
+        if (text === null || text === '') break;
+
+        const item = document.createElement('li');
+        item.textContent = text;
+        list.append(item);
+      }
+    </script>
+  </body>
+</html>

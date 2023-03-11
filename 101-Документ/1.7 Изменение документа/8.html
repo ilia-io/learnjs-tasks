@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        font-size: 40px;
+        background: hsl(227, 100%, 95%);
+      }
+      #clock {
+        border: 2px solid transparent;
+        border-image: linear-gradient(45deg, #0b2349 33%, #0d61bc 66%, #8aa9d6);
+        border-image-slice: 1;
+        border-radius: 20px;
+        max-width: 200px;
+        padding: 20px;
+        text-align: center;
+
+        font-size: 50px;
+        background: linear-gradient(45deg, #0b2349 33%, #0d61bc 66%, #8aa9d6);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: #0b2349;
+        margin: 20px auto;
+      }
+      .hour {
+        color: rgb(200, 0, 0);
+      }
+
+      .min {
+        color: rgb(0, 200, 0);
+      }
+
+      .sec {
+        color: rgb(0, 0, 200);
+      }
+
+      .startBtn,
+      .stopBtn {
+        width: 70px;
+        height: 20px;
+        background: none;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: 0.15s;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+      }
+
+      .startBtn:active,
+      .stopBtn:active {
+        box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="clock">
+      <span class="hour">hh</span>:<span class="min">mm</span>:<span class="sec"
+        >ss</span
+      >
+
+      <div class="buttons">
+        <!-- клик по этой кнопке вызовет clockStart() -->
+        <input type="button" class="startBtn" value="Start" />
+
+        <!-- клик по этой кнопке вызовет clockStop() -->
+        <input type="button" class="stopBtn" value="Stop" />
+      </div>
+    </div>
+
+    <script>
+      document.querySelector('.startBtn').addEventListener('click', clockStart);
+      document.querySelector('.stopBtn').addEventListener('click', clockStop);
+
+      let timerId;
+
+      function update() {
+        let clock = document.getElementById('clock');
+        let date = new Date();
+
+        let hours = date.getHours();
+        if (hours < 10) hours = '0' + hours;
+        clock.children[0].innerHTML = hours;
+
+        let minutes = date.getMinutes();
+        if (minutes < 10) minutes = '0' + minutes;
+        clock.children[1].innerHTML = minutes;
+
+        let seconds = date.getSeconds();
+        if (seconds < 10) seconds = '0' + seconds;
+        clock.children[2].innerHTML = seconds;
+      }
+
+      function clockStart() {
+        // устанавить новый интервал только в том случае, если часы остановлены
+        // в противном случае мы бы переписали ссылку timerID на интервал выполнения и никогда больше не смогли бы остановить часы
+        if (!timerId) {
+          timerId = setInterval(update, 1000);
+        }
+        update(); // <--  начать тут же, не ждать 1 секунду пока первый setInterval сработает
+      }
+
+      function clockStop() {
+        clearInterval(timerId);
+        timerId = null; // <-- очистить timerID, чтобы указать, что часы были остановлены, чтобы можно было запустить их снова в clockStart()
+      }
+    </script>
+  </body>
+</html>
