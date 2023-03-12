@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+
+  <body>
+    <input type="button" id="hider" value="Нажмите, чтобы" />
+
+    <div id="text">Текст</div>
+
+    <script>
+      //     Какой обработчик запустится?
+      // важность: 5
+      // В переменной button находится кнопка. Изначально на ней нет обработчиков.
+
+      // Который из обработчиков запустится? Что будет выведено при клике после выполнения кода?
+
+      button.addEventListener('click', () => alert('1'));
+
+      button.removeEventListener('click', () => alert('1'));
+
+      button.onclick = () => alert(2);
+
+      // 1 и 2
+      // удаление слушателя не сработает, т.к. "удаляется" новая функция, а не та
+      // что была назначена
+    </script>
+  </body>
+</html>

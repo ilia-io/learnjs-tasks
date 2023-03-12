@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      .hidden {
+        display: none;
+      }
+      span {
+        color: green;
+      }
+      .list {
+        list-style: none;
+        margin: 0;
+        padding: 0 20px;
+      }
+      .menu {
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="menu">
+      <span class="open hidden">▼</span><span class="close">▶</span> Сладости
+      (нажми меня)!
+    </div>
+
+    <ul class="list hidden">
+      <li>Пирожное</li>
+      <li>Пончик</li>
+      <li>Мёд</li>
+    </ul>
+
+    <script>
+      const open = document.querySelector('.open');
+      const close = document.querySelector('.close');
+      const list = document.querySelector('.list');
+      const menu = document.querySelector('.menu');
+
+      menu.addEventListener('click', () => {
+        close.classList.toggle('hidden');
+        open.classList.toggle('hidden');
+        list.classList.toggle('hidden');
+      });
+    </script>
+  </body>
+</html>
