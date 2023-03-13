@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      html,
+      body {
+        width: 100%;
+        height: 300vh;
+        padding: 0;
+        margin: 0;
+      }
+
+      #prompt-form {
+        display: inline-block;
+        padding: 5px 5px 5px 70px;
+        width: 200px;
+        border: 1px solid black;
+        background: white url(https://en.js.cx/clipart/prompt.png) no-repeat
+          left 5px;
+        vertical-align: middle;
+      }
+
+      #prompt-form-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 99;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+      }
+
+      #prompt-form-container:before {
+        display: inline-block;
+        height: 100%;
+        content: '';
+        vertical-align: middle;
+      }
+
+      #prompt-form input[name='text'] {
+        display: block;
+        margin: 5px;
+        width: 180px;
+      }
+
+      #cover-div {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 90;
+        width: 100%;
+        height: 100%;
+        background-color: gray;
+        opacity: 0.5;
+      }
+
+      .hidden {
+        display: none;
+      }
+      .box {
+        padding: 40px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="box">
+      <h1>Нажмите на кнопку</h1>
+      <button class="show-form">Нажмите, чтобы увидеть форму</button>
+    </div>
+
+    <div id="prompt-form-container" class="hidden">
+      <form id="prompt-form">
+        <div id="prompt-message">Введите что-нибудь... <br />Пожалуйста..</div>
+        <input tabindex="1" name="text" type="text" />
+        <input tabindex="2" name="ok" type="submit" value="Ok" />
+        <input tabindex="3" type="button" name="cancel" value="Отмена" />
+      </form>
+    </div>
+
+    <script>
+      const btn = document.querySelector('.show-form');
+      const cover = document.querySelector('#cover-div');
+      const container = document.querySelector('#prompt-form-container');
+      const form = document.querySelector('#prompt-form');
+
+      function handleKey(e) {
+        if (e.key === 'Tab') {
+          let focusable = form.elements;
+          if (focusable.length) {
+            let first = focusable[0];
+            let last = focusable[focusable.length - 1];
+            let shift = e.shiftKey;
+            if (shift) {
+              if (e.target === first) {
+                last.focus();
+                e.preventDefault();
+              }
+            } else {
+              if (e.target === last) {
+                first.focus();
+                e.preventDefault();
+              }
+            }
+          }
+        }
+      }
+
+      function showCover() {
+        let coverDiv = document.createElement('div');
+        coverDiv.id = 'cover-div';
+        document.body.style.overflowY = 'hidden';
+
+        document.body.append(coverDiv);
+      }
+
+      function hideCover() {
+        document.getElementById('cover-div').remove();
+
+        document.body.style.overflowY = '';
+      }
+
+      function showPrompt(html, callback) {
+        showCover();
+        document.getElementById('prompt-message').innerHTML = html;
+        window.addEventListener('keydown', handleKey);
+        form.text.value = '';
+
+        form.onsubmit = function () {
+          let value = form.elements.text.value;
+          if (value === '') return false;
+
+          complete(value);
+          return false;
+          window.removeEventListener('keydown', handleKey);
+        };
+
+        form.elements.cancel.addEventListener('click', () => complete(null));
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') {
+            complete(null);
+          }
+        });
+
+        function complete(value) {
+          hideCover();
+          container.style.display = 'none';
+          document.onkeydown = null;
+          callback(value);
+        }
+
+        container.style.display = 'block';
+        form.elements.text.focus();
+      }
+
+      btn.addEventListener('click', () => {
+        showPrompt('Введите что-нибудь<br>...умное :)', function (value) {
+          alert('Вы ввели: ' + value);
+        });
+      });
+    </script>
+  </body>
+</html>
