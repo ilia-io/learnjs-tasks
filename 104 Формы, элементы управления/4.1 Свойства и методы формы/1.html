@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <select id="genres">
+      <option value="rock">Рок</option>
+      <option value="blues" selected>Блюз</option>
+    </select>
+
+    <script>
+      //     Добавьте пункт к выпадающему списку
+      // важность: 5
+      // Имеется <select>:
+
+      // <select id="genres">
+      //   <option value="rock">Рок</option>
+      //   <option value="blues" selected>
+      //     Блюз
+      //   </option>
+      // </select>;
+      // Используя JavaScript:
+
+      // Выведите значение и текст выбранного пункта.
+      // Добавьте пункт: <option value="classic">Классика</option>.
+      // Сделайте его выбранным.
+      const selectedOption = genres.options[genres.selectedIndex];
+      console.log(selectedOption.value);
+      console.log(selectedOption.text);
+
+      const newOption = new Option('Классика', 'classic');
+      genres.append(newOption);
+
+      newOption.selected = true;
+    </script>
+  </body>
+</html>
